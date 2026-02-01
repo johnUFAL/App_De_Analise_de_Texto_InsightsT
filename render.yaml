@@ -14,7 +14,7 @@ services:
       - key: ENVIRONMENT
         value: production
       - key: FRONTEND_URL
-        value: https://insigtst.vercel.app  
+        value: https://insightstextanalysis.vercel.app
       - key: DATABASE_URL
         fromDatabase:
           name: analise_db

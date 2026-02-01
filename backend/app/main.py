@@ -12,6 +12,7 @@ app = FastAPI()
 origins = [
     "http://localhost:5173",
     "https://*.vercel.app",
+    "https://insightstextanalysis.vercel.app",
 ]
 
 #Configuração do middleware CORS
