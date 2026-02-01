@@ -21,3 +21,19 @@ class Settings(BaseSettings):
     
     class Config:
         env_file = ".env"
+
+# Instância de configurações lidas do ambiente
+settings = Settings()
+
+# Variáveis de módulo (compatibilidade com imports existentes)
+SECRET_KEY = settings.SECRET_KEY
+ALGORITHM = settings.ALGORITHM
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.ACCESS_TOKEN_EXPIRE_MINUTES
+DATABASE_URL = settings.DATABASE_URL
+ENVIRONMENT = settings.ENVIRONMENT
+FRONTEND_URL = settings.FRONTEND_URL
+
+# Falha rápida em produção se variáveis sensíveis estiverem ausentes
+if ENVIRONMENT == "production":
+    if not SECRET_KEY or not DATABASE_URL:
+        raise RuntimeError("SECRET_KEY e DATABASE_URL devem estar definidas em produção.")
