@@ -56,7 +56,7 @@ PY
 # If no args provided, run gunicorn with $PORT and configurable workers
 if [ "$#" -eq 0 ]; then
   echo "No command provided; starting gunicorn on port ${PORT:-8000}"
-  exec gunicorn app.main:app --bind 0.0.0.0:${PORT:-8000} --workers ${GUNICORN_WORKERS:-2} --worker-class uvicorn.workers.UvicornWorker
+  exec gunicorn app.main:app --bind 0.0.0.0:${PORT:-8000} --workers ${GUNICORN_WORKERS:-2} --timeout ${GUNICORN_TIMEOUT:-120} --worker-class uvicorn.workers.UvicornWorker
 fi
 
 exec "$@"

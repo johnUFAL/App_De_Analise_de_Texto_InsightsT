@@ -8,8 +8,12 @@ from app.models.analysis import Analysis, AnalysisHistorico, Usuario
 from app.models.db import pegar_session, pegar_usuario
 from app.schemas import AnalysisResponseSchema, AnalysisRequestSchema, TopicResponse
 
-#Instância do classificador de tópicos
-topic_classifier = TopicClassifier()
+#instância do classificador de tópicos 
+from functools import lru_cache
+
+@lru_cache()
+def get_topic_classifier():
+    return TopicClassifier()
 
 #Definição do roteador de análise
 analysis_router = APIRouter(prefix='/analysis', tags=['analysis'])
@@ -136,10 +140,11 @@ async def deletar_todas_analises(usuario: Usuario = Depends(pegar_usuario), sess
 #Rota para classificar o tópico do texto
 @analysis_router.post("/topic", response_model=TopicResponse)
 def classify_topic(request: AnalysisRequestSchema, usuario: Usuario = Depends(pegar_usuario)):
-    resultados = topic_classifier.predict(request.texto_original)
-    
+    classifier = get_topic_classifier()
+    resultados = classifier.predict(request.texto_original)
+
     return {
         "texto": request.texto_original,
         "topicos": resultados,
-        "topico_principal": resultados[0]["topico"]  
+        "topico_principal": resultados[0]["topico"]
     }

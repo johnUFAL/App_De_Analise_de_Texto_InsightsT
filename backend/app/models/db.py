@@ -19,8 +19,14 @@ else:
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-#Criação das tabelas no banco de dados
-Base.metadata.create_all(bind=engine)
+# Criação das tabelas no banco de dados
+if os.getenv("ENVIRONMENT") != "production":
+    try:
+        Base.metadata.create_all(bind=engine)
+    except Exception as e:
+        import sys
+        print(f"Aviso: falha ao executar create_all: {e}", file=sys.stderr)
+
 
 #Dependência para pegar a sessão do banco de dados
 def pegar_session():
