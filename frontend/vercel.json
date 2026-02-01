@@ -10,6 +10,8 @@
     }
   ],
   "rewrites": [
+    { "source": "/favicon.ico", "destination": "/images/logo.png" },
+    { "source": "/favicon.png", "destination": "/images/logo.png" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "cleanUrls": true
