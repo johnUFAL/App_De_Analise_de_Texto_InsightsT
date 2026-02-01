@@ -1,0 +1,16 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "vite-react",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://insightst-backend.onrender.com/$1"
+    }
+  ],
+  "env": {
+    "VITE_API_URL": "https://insightst-backend.onrender.com"
+  }
+}

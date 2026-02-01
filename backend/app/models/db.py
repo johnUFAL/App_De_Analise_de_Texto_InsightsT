@@ -6,10 +6,17 @@ from .analysis import Base, Usuario, TokenRevogado
 from sqlalchemy import create_engine # type: ignore
 from sqlalchemy.orm import sessionmaker, Session # type: ignore
 from jose import JWTError, jwt # type: ignore
+import os 
 
-#Configuração do banco de dados
-DATABASE_URL = 'sqlite:///analyses.db'
-engine = create_engine(DATABASE_URL)
+#Detecta ambiente
+if os.getenv("ENVIRONMENT") == "production":
+    DATABASE_URL = os.getenv("DATABASE_URL")
+    #PostgreSQL precisa dessa opção
+    engine = create_engine(DATABASE_URL, pool_pre_ping=True)
+else:
+    DATABASE_URL = "sqlite:///./analises.db"
+    engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 #Criação das tabelas no banco de dados
