@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import Perfil from "./pages/Perfil";
 
+//Rota privada que verifica autenticação
 function PrivateRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
 
@@ -25,6 +26,7 @@ function PrivateRoute({ children }) {
   return isAuthenticated ? children : <Navigate to='/login' replace />;
 }
 
+//Rota pública que redireciona se já autenticado
 function PublicRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
 
@@ -42,6 +44,7 @@ function PublicRoute({ children }) {
   return !isAuthenticated ? children : <Navigate to='/' replace />;
 }
 
+//Conteúdo principal do App com rotas
 function AppContent() {
   return (
     <>

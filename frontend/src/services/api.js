@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+//definição da URL base da API
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
+//configuração do axios
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -34,6 +36,7 @@ api.interceptors.response.use(
   (error) => {
     console.error('Response error:', error.response?.status, error.config?.url, error.response?.data)
     
+    //redireciona para login se o token expirou ou é inválido
     if (error.response?.status === 401) {
       console.log('Token expirado ou inválido, redirecionando para login...')
       localStorage.removeItem('token')

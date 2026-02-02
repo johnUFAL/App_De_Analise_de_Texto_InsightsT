@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship, declarative_base # type: ignore
 #Base declarative class
 Base = declarative_base()
 
-#Banco de Dados Modelo para Análise de Texto
+#odelo para Análise de Texto
 class Analysis(Base):
     __tablename__ = "analyses"
 

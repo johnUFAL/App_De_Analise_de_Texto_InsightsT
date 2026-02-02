@@ -4,6 +4,7 @@ const NotificationContext = createContext();
 
 let idCounter = 0;
 
+//Hook para usar notificações
 export const useNotification = () => {
   const context = useContext(NotificationContext);
   if (!context) {
@@ -12,6 +13,7 @@ export const useNotification = () => {
   return context;
 };
 
+//Provider de notificações
 export const NotificationProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
 
@@ -24,10 +26,12 @@ export const NotificationProvider = ({ children }) => {
     return id;
   }, []);
 
+  //Remover notificação
   const removeNotification = useCallback((id) => {
     setNotifications(prev => prev.filter(notif => notif.id !== id));
   }, []);
 
+  //Funções auxiliares para alguns tipos de de notificações
   const showError = useCallback((message, duration = 5000) => {
     return addNotification(message, 'error', duration);
   }, [addNotification]);

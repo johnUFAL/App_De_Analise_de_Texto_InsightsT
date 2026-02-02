@@ -3,6 +3,7 @@ import { authAPI } from '../services/api'
 
 const AuthContext = createContext()
 
+//Hook para usar em autenticação
 export const useAuth = () => {
   const context = useContext(AuthContext)
   if (!context) {
@@ -11,6 +12,7 @@ export const useAuth = () => {
   return context
 }
 
+//Provider de autenticação
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -36,6 +38,7 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  //Lida com token inválido ou expirado
   const handleInvalidToken = () => {
     setUser(null)
     setToken(null)
@@ -43,6 +46,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('user')
   }
 
+  //Função de login
   const login = async (email, senha) => {
     try {
       const response = await authAPI.login(email, senha)
@@ -73,6 +77,7 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  //Função de registro
   const register = async (name, email, senha) => {
     try {
       const response = await authAPI.register({ 
@@ -104,6 +109,7 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  //Função de logout
   const logout = () => {
     setUser(null)
     setToken(null)
@@ -114,6 +120,7 @@ export const AuthProvider = ({ children }) => {
     window.location.replace('/login')
   }
 
+  //Valor do contexto
   return (
     <AuthContext.Provider value={{ 
       user, 

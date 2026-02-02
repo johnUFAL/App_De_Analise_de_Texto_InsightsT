@@ -9,5 +9,5 @@ export const APP_CONFIG = {
     haveAccountMessage: 'Já tem uma conta?',
     loginText: 'Faça login',
     createAccountMessage: 'Crie sua conta',
-    startMonitoringMessage: 'Comece a monitorar seu consumo de energia!'
+    startMonitoringMessage: 'Comece a ter ideias agora!'
 }

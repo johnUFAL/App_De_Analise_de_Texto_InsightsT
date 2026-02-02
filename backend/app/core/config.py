@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     #Ambiente
     ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
 
-    #Banco de dados (opcional — validado após instância)
+    #Banco de dados
     DATABASE_URL: Optional[str] = None
 
     #Segurança
@@ -23,6 +23,7 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
+#Configuração do banco de dados para desenvolvimento
 if not settings.DATABASE_URL:
     if settings.ENVIRONMENT != 'production':
         settings.DATABASE_URL = 'sqlite:///./analises.db'

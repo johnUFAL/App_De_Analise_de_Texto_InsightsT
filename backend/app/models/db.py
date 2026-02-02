@@ -11,12 +11,14 @@ import os
 #Detecta ambiente
 if os.getenv("ENVIRONMENT") == "production":
     DATABASE_URL = os.getenv("DATABASE_URL")
-    #PostgreSQL precisa dessa opção
+    #PostgreSQL
     engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 else:
+    #SQLite
     DATABASE_URL = "sqlite:///./analises.db"
     engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 
+#Criação da sessão do banco de dados
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Criação das tabelas no banco de dados
