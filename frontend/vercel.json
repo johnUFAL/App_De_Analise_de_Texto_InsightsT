@@ -1,10 +1,18 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/favicon.ico", "destination": "/images/logo.png" },
-    { "source": "/favicon.png", "destination": "/images/logo.png" },
-    { "source": "/login", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "cleanUrls": true
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    }
+  ]
 }
